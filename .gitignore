@@ -1,0 +1,81 @@
+# ==========================================
+# 1. Dependencies and Package Managers
+# ==========================================
+node_modules/
+bower_components/
+jspm_packages/
+.npm/
+vendor/
+.venv/
+env/
+venv/
+
+# ==========================================
+# 2. Build Outputs and Compiled Code
+# ==========================================
+dist/
+build/
+out/
+bin/
+obj/
+*.exe
+*.dll
+*.so
+*.class
+*.pyc
+
+# ==========================================
+# 3. Environment Variables and Secrets (CRITICAL)
+# ==========================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+id_rsa
+secrets.json
+
+# ==========================================
+# 4. Operating System System Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.fuse_hidden*
+
+# ==========================================
+# 5. IDEs and Code Editors
+# ==========================================
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ==========================================
+# 6. Logs, Caches, and Diagnostics
+# ==========================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.cache/
+.pytest_cache/
