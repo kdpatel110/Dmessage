@@ -1,12 +1,15 @@
-# --- Stage 1: Build frontend ---
-FROM node:22-bookworm-slim AS frontend-build
+# =========================================================
+# Stage 1: Build client
+# =========================================================
+FROM node:22-bookworm-slim AS client-build
 
-WORKDIR /app/frontend
+WORKDIR /app/client
 
-COPY frontend/package.json frontend/package-lock.json ./
+COPY client/package.json client/package-lock.json ./
+
 RUN npm install --no-audit --no-fund --legacy-peer-deps
 
-COPY frontend/ ./
+COPY client/ ./
 
 ENV VITE_API_URL=
 
@@ -16,22 +19,27 @@ ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
 RUN npm run build
 
 
-# --- Stage 2: Backend ---
-FROM node:22-bookworm-slim AS runner
+# =========================================================
+# Stage 2: Production server
+# =========================================================
+FROM node:22-bookworm-slim AS server
 
-WORKDIR /app
+WORKDIR /app/server
 
 ENV NODE_ENV=production
 ENV PORT=3001
 
+# Backend dependencies
 COPY server/package.json server/package-lock.json ./
 
-RUN npm install --omit=dev --no-audit --no-fund
+RUN npm install --omit=dev --no-audit --no-fund \
+    && npm cache clean --force
 
+# Backend source
 COPY server/ ./
 
-# Copy frontend build
-COPY --from=frontend-build /app/frontend/dist ./public
+# Put the built client INSIDE server
+COPY --from=client-build /app/client/dist ./client
 
 EXPOSE 3001
 
