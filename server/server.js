@@ -17,6 +17,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL
 
 const publicDir = path.join(process.cwd(), "public");
 
+// it's important that you don't parse the webhook event data, it should be in the raw format
+app.use("/api/webhooks/clerk",express.raw({type: "application/json"}), clerkWebhook);
+
 app.use(express.json());
 app.use(cors({
   origin: FRONTEND_URL,
@@ -24,7 +27,6 @@ app.use(cors({
 }));
 app.use(clerkMiddleware());
 
-app.use("/api/webhooks/clerk",express.raw({type: "application/json"}), clerkWebhook);
 
 app.get("/health", (req, res)=>{
   res.status(200).json({ok: true});
