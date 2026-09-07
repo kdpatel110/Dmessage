@@ -6,6 +6,7 @@ import User from './models/user.model.js'
 import { clerkMiddleware } from '@clerk/express'
 import fs from 'fs';
 import path from 'path';
+import job from './lib/cron.js'
 
 
 const app = express()
@@ -22,9 +23,6 @@ app.use(cors({
 }));
 app.use(clerkMiddleware());
 
-app.get('/api/health', (req, res) => {
-  res.send('Hello World!')
-})
 
 if(fs.existsSync(publicDir)){
   app.use(express.static(publicDir))
@@ -37,4 +35,8 @@ if(fs.existsSync(publicDir)){
 app.listen(port, () => {
   connectDB();
   console.log(`Example app listening on port ${port}`)
+
+  if(process.env.NODE_ENV === "production"){
+     job.start()
+    }
 })
