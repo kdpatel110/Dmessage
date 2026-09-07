@@ -22,7 +22,7 @@ app.use(cors({
 }));
 app.use(clerkMiddleware());
 
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.send('Hello World!')
 })
 
