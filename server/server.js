@@ -7,6 +7,7 @@ import { clerkMiddleware } from '@clerk/express'
 import fs from 'fs';
 import path from 'path';
 import job from './lib/cron.js'
+import clerkWebhook from './webhooks/clerk.webhook.js'
 
 
 const app = express()
@@ -23,6 +24,11 @@ app.use(cors({
 }));
 app.use(clerkMiddleware());
 
+app.use("/api/webhooks/clerk",express.raw({type: "application/json"}), clerkWebhook);
+
+app.get("/health", (req, res)=>{
+  res.status(200).json({ok: true});
+})
 
 if(fs.existsSync(publicDir)){
   app.use(express.static(publicDir))
