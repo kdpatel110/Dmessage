@@ -43,7 +43,7 @@ RUN npm install --omit=dev --no-audit --no-fund \
 COPY server/ ./
 
 # Put Vite build inside /app/server/client
-COPY --from=client-build /app/client/dist ./client
+COPY --from=client-build /app/client/dist ./public
 
 EXPOSE 3001
 
