@@ -1,7 +1,8 @@
-import e from "express";
+import express from "express";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js"
+import { getReceiverSocketId } from "../lib/socket.js";
 
 export async function getUserForSidebar(req, res) {
     try {
@@ -128,6 +129,12 @@ export async function sendMessage(req, res) {
 
             await newMessage.save()
             //TODO : realtime with socketio
+            const receiverSocketId = getReceiverSocketId(receiverId)
+            //only sned the message in realtime if user is online
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit("newMessage", newMessage)
+            }
+
             res.status(201).json(newMessage)
         }   
     } catch (error) {
@@ -135,3 +142,5 @@ export async function sendMessage(req, res) {
         res.status(500).json({Message: "Internal server error"});
     }
 }
+
+
