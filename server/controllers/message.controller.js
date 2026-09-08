@@ -1,7 +1,7 @@
 import e from "express";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
 import Message from "../models/message.model.js";
-import User from "../models/user.model"
+import User from "../models/user.model.js"
 
 export async function getUserForSidebar(req, res) {
     try {
