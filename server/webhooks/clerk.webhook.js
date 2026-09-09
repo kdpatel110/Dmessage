@@ -4,6 +4,7 @@ import { verifyWebhook } from "@clerk/backend/webhooks";
 
 const router = express.Router()
 router.post("/", async (req, res) => {
+    console.log("🔥 CLERK WEBHOOK HIT");
     try {
         const signingSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
         if (!signingSecret) {
@@ -20,6 +21,8 @@ router.post("/", async (req, res) => {
 
         // throws if the signature is wrong or the body was tampered with; only then do we trust evt.
         const evt = await verifyWebhook(request, { signingSecret });
+        console.log("🔥 WEBHOOK EVENT:", evt.type);
+console.log("🔥 CLERK USER ID:", evt.data?.id);
 
         if (evt.type === 'user.created' || evt.type === 'user.updated') {
             const userData = evt.data;
@@ -37,6 +40,7 @@ router.post("/", async (req, res) => {
                 { new: true, upsert: true, setDefaultsOnInsert: true },
                 //new: true: By default, Mongoose returns the document before the update was applied. Setting this to true ensures that the function returns the modified document (or the newly created one) after the operation completes.
             );
+            console.log("🔥 USER SYNCED TO MONGODB:", userData.id);
         }
 
         if (evt.type === 'user.deleted') {

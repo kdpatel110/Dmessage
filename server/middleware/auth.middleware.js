@@ -19,5 +19,8 @@ export async function protectRoute(req, res, next) {
         next()
     } catch (error) {
         console.error("Error in protectRout middleware", error.message);
+        return res.status(500).json({
+            message: "Authentication middleware error"
+        });
     }
 }
