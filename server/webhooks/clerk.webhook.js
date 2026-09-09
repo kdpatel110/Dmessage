@@ -36,7 +36,7 @@ console.log("🔥 CLERK USER ID:", evt.data?.id);
             //upsert(update or insert) in MongoDB, if user exist then update otherwise create new user
             await User.findOneAndUpdate(
                 { clerkId: userData.id }, //Query
-                { clerkId: userData.id, primaryEmail, fullName, profilePic: userData.image_url }, //Update Data
+                { clerkId: userData.id, eamil: primaryEmail, fullName, profilePic: userData.image_url }, //Update Data
                 { new: true, upsert: true, setDefaultsOnInsert: true },
                 //new: true: By default, Mongoose returns the document before the update was applied. Setting this to true ensures that the function returns the modified document (or the newly created one) after the operation completes.
             );
