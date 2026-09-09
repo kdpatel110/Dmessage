@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AvatarWithOnlineIndicator = ({children, isOnline}) => {
+const AvatarWithOnlineIndicator = ({children, isOnline, dotClassName}) => {
   return (
     <div className="relative inline-flex shrink-0">
       {children}
