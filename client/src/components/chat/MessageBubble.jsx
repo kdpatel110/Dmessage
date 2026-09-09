@@ -1,6 +1,6 @@
 import React from 'react'
 import { withTransform } from "../../lib/imagekit";
-import { MessageVideo } from "./MessageVideo";
+import MessageVideo  from "./MessageVideo";
 
 // Compress + size images for the bubble (q-auto works for images; f-auto picks WebP/AVIF).
 const IMAGE_TRANSFORM = "q-auto,w-640,f-auto";

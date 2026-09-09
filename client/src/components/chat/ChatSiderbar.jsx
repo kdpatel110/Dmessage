@@ -7,7 +7,7 @@ import { UserButton } from "@clerk/react";
 
 import { SearchField, Tabs } from "@heroui/react";
 import { MessageSquareIcon, UsersIcon } from "lucide-react";
-import { ConversationRow } from "./ConversationRow";
+import  ConversationRow  from "./ConversationRow";
 
 function mapUserForList(user, onlineUsers) {
     return {
@@ -27,6 +27,9 @@ function mapUserForList(user, onlineUsers) {
 }
 const ChatSiderbar = () => {
     const conversations = useChatStore((state) => state.conversations);
+    console.log("conversations:", conversations);
+console.log("type:", typeof conversations);
+console.log("isArray:", Array.isArray(conversations));
 
     console.log(conversations);
     const users = useChatStore((state) => state.users);
@@ -45,7 +48,9 @@ const ChatSiderbar = () => {
 
     const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
-    const conversationUsers = conversations.map((user) => mapUserForList(user, onlineUsers));
+    const conversationUsers = conversations.map((conversation) => mapUserForList(conversation, onlineUsers));
+    console.log("users:", users);
+console.log("users is array:", Array.isArray(users));
     const allUsers = users.map((user) => mapUserForList(user, onlineUsers));
 
     const filteredConversations = normalizedSearchQuery

@@ -74,7 +74,7 @@ export async function getConversationForSidebar(req, res) {
         ])
         res.status(200).json(conversations);
     } catch (error) {
-        console.error("Error in getConversationsForSidebar:", error.message);
+        console.error("Error in sForSidebar:", error.message);
         res.status(500).json({ message: "Internal server error" });
     }
 }

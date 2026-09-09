@@ -1,7 +1,7 @@
 import React from 'react'
 import useScrollToBottom from "../../hooks/useScrollToBottom";
-import { MessageBubble } from "./MessageBubble";
-import { NoConversationPlaceholder } from "./NoConversationPlaceholder";
+import  MessageBubble  from "./MessageBubble";
+import  NoConversationPlaceholder  from "./NoConversationPlaceholder";
 import { useSelectedConversation } from "../../hooks/useSelectedConversation";
 
 const MessageList = () => {
