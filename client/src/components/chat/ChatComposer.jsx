@@ -78,7 +78,7 @@ const ChatComposer = () => {
                 <TextArea
                     fullWidth
                     variant="secondary"
-                    placeholder="iMessage"
+                    placeholder="DMessage"
                     rows={1}
                     value={composerText}
                     onChange={handleComposerTextChange}

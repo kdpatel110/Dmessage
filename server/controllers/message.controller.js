@@ -118,28 +118,27 @@ export async function sendMessage(req, res) {
             } else {
                 imageUrl = url;
             }
+        }
+        const newMessage = new Message({
+            senderId,
+            receiverId,
+            text,
+            image: imageUrl,
+            video: videoUrl,
+        })
 
-            const newMessage = new Message({
-                senderId,
-                receiverId,
-                text,
-                image: imageUrl,
-                video: videoUrl,
-            })
+        await newMessage.save()
+        //TODO : realtime with socketio
+        const receiverSocketId = getReceiverSocketId(receiverId)
+        //only sned the message in realtime if user is online
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage)
+        }
 
-            await newMessage.save()
-            //TODO : realtime with socketio
-            const receiverSocketId = getReceiverSocketId(receiverId)
-            //only sned the message in realtime if user is online
-            if(receiverSocketId){
-                io.to(receiverSocketId).emit("newMessage", newMessage)
-            }
-
-            res.status(201).json(newMessage)
-        }   
+        res.status(201).json(newMessage)
     } catch (error) {
         console.error("Error in sendMessage:", error);
-        res.status(500).json({Message: "Internal server error"});
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 
