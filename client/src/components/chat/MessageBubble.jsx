@@ -9,6 +9,8 @@ const MessageBubble = ({ message }) => {
     console.log("MESSAGE RECEIVED BY BUBBLE:", message);
     const isOwnMessage = message.role === "me";
     const hasImage = Boolean(message.imageUrl);
+    console.log("has image :", hasImage);
+
     const hasVideo = Boolean(message.videoUrl);
 
     return (
