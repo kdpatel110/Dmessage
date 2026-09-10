@@ -8,7 +8,7 @@ const IMAGE_TRANSFORM = "q-auto,w-640,f-auto";
 const MessageBubble = ({ message }) => {
     console.log("MESSAGE RECEIVED BY BUBBLE:", message);
     const isOwnMessage = message.role === "me";
-    const hasImage = Boolean(message.imageUrl);
+    const hasImage = Boolean(message.image);
     console.log("has image :", hasImage);
 
     const hasVideo = Boolean(message.videoUrl);
