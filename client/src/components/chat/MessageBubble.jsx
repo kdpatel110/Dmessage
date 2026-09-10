@@ -6,9 +6,10 @@ import MessageVideo from "./MessageVideo";
 const IMAGE_TRANSFORM = "q-auto,w-640,f-auto";
 
 const MessageBubble = ({ message }) => {
+    console.log("MESSAGE RECEIVED BY BUBBLE:", message);
     const isOwnMessage = message.role === "me";
-    const hasImage = Boolean(message.imageUrl);
-    const hasVideo = Boolean(message.videoUrl);
+    const hasImage = Boolean(message.image);
+    const hasVideo = Boolean(message.video);
 
     return (
         <div className={`flex w-full ${isOwnMessage ? "justify-end" : "justify-start"}`}>
@@ -20,12 +21,12 @@ const MessageBubble = ({ message }) => {
             >
                 {hasImage ? (
                     <img
-                        src={withTransform(message.imageUrl, IMAGE_TRANSFORM)}
+                        src={withTransform(message.image, IMAGE_TRANSFORM)}
                         alt=""
                         className="mb-1.5 max-h-40 max-w-full rounded-lg object-cover sm:max-h-52 sm:rounded-xl"
                     />
                 ) : null}
-                {hasVideo ? <MessageVideo src={message.videoUrl} /> : null}
+                {hasVideo ? <MessageVideo src={message.video} /> : null}
                 {message.text ? (
                     <p className="whitespace-pre-wrap wrap-break-word">{message.text}</p>
                 ) : null}
