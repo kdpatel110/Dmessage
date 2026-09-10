@@ -119,6 +119,8 @@ export async function sendMessage(req, res) {
                 imageUrl = url;
             }
         }
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
         const newMessage = new Message({
             senderId,
             receiverId,
